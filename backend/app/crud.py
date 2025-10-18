@@ -13,3 +13,10 @@ def create_blog_post(db: Session, blog_post: schemas.BlogPostCreate):
     db.commit()
     db.refresh(db_blog_post)
     return db_blog_post
+
+def delete_blog_post(db: Session, blog_post_id: int):
+    db_blog_post = db.query(models.BlogPost).filter(models.BlogPost.id == blog_post_id).first()
+    if db_blog_post:
+        db.delete(db_blog_post)
+        db.commit()
+    return db_blog_post
