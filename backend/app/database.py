@@ -2,6 +2,7 @@ from sqlalchemy import URL, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from .config import DATABASE_NAME, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER
+from sqlmodel import create_engine, SQLModel
 
 url_object = URL.create("postgresql",
                         username=DATABASE_USER,
@@ -15,4 +16,4 @@ Base = declarative_base()
 
 def init_db():
     print("INIT DB CALLED")
-    Base.metadata.create_all(bind=engine)
+    SQLModel.metadata.create_all(engine)
