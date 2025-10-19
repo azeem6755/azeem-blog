@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 class BlogPostBase(BaseModel):
     title: str
@@ -9,6 +10,8 @@ class BlogPostCreate(BlogPostBase):
 
 class BlogPost(BlogPostBase):
     id: int
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True
