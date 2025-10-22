@@ -1,12 +1,29 @@
 import os
 import pytz
 from dotenv import load_dotenv
+from functools import lru_cache
+from pydantic_settings import BaseSettings
 
 load_dotenv()
 
-DATABASE_NAME = os.getenv('DB_NAME')
-DATABASE_USER = os.getenv('DB_USER')
-DATABASE_HOST = os.getenv('DB_HOST')
-DATABASE_PASSWORD = os.getenv('DB_PASSWORD')
+class Settings(BaseSettings):
+    APP_NAME: str = "Azeem Blog"
+    admin_email: str
+    database_name: str
+    database_user: str
+    database_password: str
+    database_host: str
+    secret_key: str
+    allowed_hosts: list = ["*"]
+    debug: bool
+
+    class Config:
+        env_file = ".env"
+
+@lru_cache()
+def get_settings():
+    return Settings()
 
 indian_timezone = pytz.timezone('Asia/Kolkata')
+
+

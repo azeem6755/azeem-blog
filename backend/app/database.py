@@ -1,14 +1,16 @@
 from sqlalchemy import URL, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from .config import DATABASE_NAME, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER
+from .config import get_settings
 from sqlmodel import create_engine, SQLModel
 
+settings = get_settings()
+
 url_object = URL.create("postgresql",
-                        username=DATABASE_USER,
-                        password=DATABASE_PASSWORD,
-                        host=DATABASE_HOST,
-                        database=DATABASE_NAME)
+                        username=settings.database_user,
+                        password=settings.database_password,
+                        host=settings.database_host,
+                        database=settings.database_name)
 
 engine = create_engine(url_object)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
