@@ -3,7 +3,7 @@ from . import database, routes, models
 from .config import get_settings
 
 
-app = FastAPI()
+app = FastAPI(root_path='/blog/')
 
 @app.middleware("http")
 async def validate_host(request, call_next):

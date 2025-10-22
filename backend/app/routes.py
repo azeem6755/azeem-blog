@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from . import crud, models, schemas, database
 
-router = APIRouter(prefix='/blog')
+router = APIRouter()
 
 def get_session_local():
     yield database.SessionLocal()
